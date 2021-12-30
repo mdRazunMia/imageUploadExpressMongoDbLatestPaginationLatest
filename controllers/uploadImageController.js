@@ -56,7 +56,7 @@ const getPaginatedImage = (req, res)=>{
     uploadImageCollection.find({}).toArray(function(err, result) {
         if (err) throw err;
         let totalImageLength = result.length
-        let totalPage = totalImageLength/requestedItems
+        let totalPage = Math.ceil(totalImageLength/requestedItems)
         let initialValue = -1
         // if(requestedPageNumber === totalPage){
         //     let modifiedRequestedPageNumber = requestedPageNumber - 1
@@ -72,7 +72,7 @@ const getPaginatedImage = (req, res)=>{
         
         console.log(requestedPageNumber<=totalPage)
         console.log(endValue<=totalImageLength)
-        if((requestedPageNumber <= totalPage) && (endValue <= totalImageLength) && requestedPageNumber != 0){
+        if((requestedPageNumber <= totalPage) && requestedPageNumber != 0){
             let requetedArrayOfImages = []
             let counter = 0
             for(var i = initialValue; i <= endValue; i++){
